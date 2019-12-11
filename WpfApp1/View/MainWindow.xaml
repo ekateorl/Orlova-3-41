@@ -1,0 +1,66 @@
+﻿<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="Beauty Salon Appoinment" Height="450" Width="800" Background="Purple" >
+    <Window.Resources>
+        <Style x:Key="PageButton" TargetType="Button">
+            <Setter Property="BorderThickness" Value="0"></Setter>
+            <Setter Property="Background" Value="Transparent"></Setter>
+            <Setter Property="TextElement.FontFamily" Value="Candara Light"></Setter>
+            <Setter Property="TextElement.Foreground" Value="White"></Setter>
+            <Setter Property="TextElement.FontSize" Value="18"></Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Left"></Setter>
+            <Setter Property="Padding" Value="7"></Setter>
+            <Setter Property="Height" Value="50"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Background="{TemplateBinding Background}"
+                            Padding="{TemplateBinding Padding}"
+                            SnapsToDevicePixels="true">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#6a006a"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="HeaderStyle" TargetType="Grid">
+            <Setter Property="TextElement.FontFamily" Value="Candara"></Setter>
+            <Setter Property="TextElement.Foreground" Value="White"></Setter>
+            <Setter Property="TextElement.FontSize" Value="24"></Setter>
+            <Setter Property="Height" Value="80"></Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel Background="Purple" Orientation="Vertical" Grid.Column="0">
+
+            <Grid Style="{StaticResource HeaderStyle}">
+                <TextBlock VerticalAlignment="Center" Margin="7">BSA</TextBlock>
+            </Grid>
+            <Button Style="{StaticResource PageButton}" Command="{Binding SpecialistListCommand}">Мастера</Button>
+            <Button Style="{StaticResource PageButton}" Command="{Binding CategoryListCommand}">Услуги</Button>
+            <Button Style="{StaticResource PageButton}">Записи</Button>
+            <Button Style="{StaticResource PageButton}">Расписание</Button>
+        </StackPanel>
+        <Frame Grid.Column="1" x:Name="MainFrame"></Frame>
+    </Grid>
+</Window>

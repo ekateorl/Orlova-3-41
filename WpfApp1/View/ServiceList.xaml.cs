@@ -13,21 +13,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WpfApp1
+namespace WpfApp1.View
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для ServiceList.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ServiceList : Page
     {
-        public MainWindow()
+        public ServiceList(object dataContext)
         {
             InitializeComponent();
-        }
-
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-
+            DataContext = dataContext;
         }
     }
 }
