@@ -35,11 +35,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
     <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -58,12 +64,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModel\AppointmentPageVM.cs" />
+    <Compile Include="ViewModel\AppointmentVM.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\CategoryListViewModel.cs" />
     <Compile Include="ViewModel\ServiceInfoViewModel.cs" />
     <Compile Include="ViewModel\ServiceListViewModel.cs" />
+    <Compile Include="ViewModel\SpecialistAppVM.cs" />
     <Compile Include="ViewModel\SpecialistInfoViewModel.cs" />
     <Compile Include="ViewModel\SpecialistPageViewModel.cs" />
+    <Compile Include="View\AppointmentPage.xaml.cs">
+      <DependentUpon>AppointmentPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\CategoryList.xaml.cs">
       <DependentUpon>CategoryList.xaml</DependentUpon>
     </Compile>
@@ -79,6 +91,10 @@
     <Compile Include="View\SpecialistList.xaml.cs">
       <DependentUpon>SpecialistList.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\AppointmentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\CategoryList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -148,9 +164,6 @@
     <Resource Include="Resources\парикмахерские.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\облака.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\маникюр.jpg" />
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +183,21 @@
       <Project>{1600ef46-2491-4c49-9102-665f2aca7112}</Project>
       <Name>DAL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\5.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\6.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\7.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\аппаратная.jpg" />
+    <Resource Include="Resources\массаж.jpg" />
+    <Resource Include="Resources\эпиляция.jpg" />
+    <Resource Include="Resources\эстетическая.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

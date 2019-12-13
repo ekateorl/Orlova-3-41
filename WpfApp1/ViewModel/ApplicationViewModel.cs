@@ -83,7 +83,21 @@ namespace WpfApp1.ViewModel
             set { _categoryListCommand = value; }
         }
 
+        private ICommand _appPageCommand;
 
+        public ICommand AppPageCommand
+        {
+            get
+            {
+                if (_appPageCommand == null)
+                    _appPageCommand = new RelayCommand(obj =>
+                    {
+                        nav.Navigate(new View.AppointmentPage(new AppointmentPageVM(crud)));
+                    });
+                return _appPageCommand;
+            }
+            set { _appPageCommand = value; }
+        }
 
     }
 }

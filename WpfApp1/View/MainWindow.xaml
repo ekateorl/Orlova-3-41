@@ -58,7 +58,7 @@
             </Grid>
             <Button Style="{StaticResource PageButton}" Command="{Binding SpecialistListCommand}">Мастера</Button>
             <Button Style="{StaticResource PageButton}" Command="{Binding CategoryListCommand}">Услуги</Button>
-            <Button Style="{StaticResource PageButton}">Записи</Button>
+            <Button Style="{StaticResource PageButton}" Command="{Binding AppPageCommand}">Записи</Button>
             <Button Style="{StaticResource PageButton}">Расписание</Button>
         </StackPanel>
         <Frame Grid.Column="1" x:Name="MainFrame"></Frame>
