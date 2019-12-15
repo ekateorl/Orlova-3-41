@@ -68,6 +68,7 @@
     <Compile Include="ViewModel\AppointmentVM.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\CategoryListViewModel.cs" />
+    <Compile Include="ViewModel\MakeAppointmentVM.cs" />
     <Compile Include="ViewModel\ServiceInfoViewModel.cs" />
     <Compile Include="ViewModel\ServiceListViewModel.cs" />
     <Compile Include="ViewModel\SpecialistAppVM.cs" />
@@ -78,6 +79,9 @@
     </Compile>
     <Compile Include="View\CategoryList.xaml.cs">
       <DependentUpon>CategoryList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MakeAppointmentPage.xaml.cs">
+      <DependentUpon>MakeAppointmentPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ServiceInfo.xaml.cs">
       <DependentUpon>ServiceInfo.xaml</DependentUpon>
@@ -114,6 +118,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\MakeAppointmentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ServiceInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

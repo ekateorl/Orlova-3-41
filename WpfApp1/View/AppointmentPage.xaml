@@ -51,27 +51,45 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="80"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="200"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource Header}" Text="Записи"></TextBlock>
-                <DatePicker Grid.Row="0" Grid.Column="1" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left" SelectedDate="{Binding Date}">
+                <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Style="{StaticResource Header}" Text="Записи"></TextBlock>
+                <Calendar Grid.Row="1" Grid.Column="0"  Margin="9,0,5,5" FontFamily="Candara" SelectedDate="{Binding Date}">
                     <ie:Interaction.Triggers>
-                        <ie:EventTrigger EventName="SelectedDateChanged">
+                        <ie:EventTrigger EventName="SelectedDatesChanged">
                             <ie:InvokeCommandAction Command="{Binding DateCommand}" CommandParameter="{Binding SelectedDate}">
                             </ie:InvokeCommandAction>
                         </ie:EventTrigger>
                     </ie:Interaction.Triggers>
-                </DatePicker>
-                <ListBox Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Specialists}" Width="Auto">
+                </Calendar>
+                <Button Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" Height="30" Margin="9" 
+                        Command="{Binding NewAppCommand}">Новая запись</Button>
+                <ListBox Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" ItemsSource="{Binding Specialists}" Width="Auto">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Setter Property="VerticalAlignment" Value="Top"></Setter>
                             <Setter Property="Margin" Value="5"></Setter>
-
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <Border x:Name="Bd"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                            Background="{TemplateBinding Background}"
+                                            Padding="{TemplateBinding Padding}"
+                                            SnapsToDevicePixels="true">         
+                                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
                         </Style>
                     </ListBox.ItemContainerStyle>
                     <ListBox.ItemsPanel>
@@ -102,6 +120,23 @@
                                             <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
                                             <Setter Property="Padding" Value="0"></Setter>
                                             <Setter Property="Margin" Value="5"></Setter>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="ListBoxItem">
+                                                        <Border x:Name="Bd"
+                                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                                            Background="{TemplateBinding Background}"
+                                                            Padding="{TemplateBinding Padding}"
+                                                            SnapsToDevicePixels="true">
+                                                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />       
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+
                                         </Style>
                                     </ListBox.ItemContainerStyle>
                                     <ListBox.ItemTemplate>

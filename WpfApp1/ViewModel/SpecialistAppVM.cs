@@ -47,6 +47,18 @@ namespace WpfApp1.ViewModel
             }
         }
 
+        private ObservableCollection<TimeSlot> timeSlots;
+
+        public ObservableCollection<TimeSlot> TimeSlots
+        {
+            get { return timeSlots; }
+            set
+            {
+                timeSlots = value;
+                OnPropertyChanged("TimeSlots");
+            }
+        }
+
         public SpecialistAppVM(User u, IDbRepository crud)
         {
             this.crud = crud;
@@ -79,6 +91,21 @@ namespace WpfApp1.ViewModel
             
         }
 
+        public void SelectTime(DateTime date, Service s)
+        {
+            List<WorkDay> workDays = crud.WorkDays.GetList().Where(i => i.Date == date && i.SpecialistFk == UserId).ToList();
+            if (workDays.Count > 0)
+            {
+                WorkDay workDay = workDays.Last();
+                List<TimeSlot>timeS= crud.MakeAppointments.SelectTime(workDay.WorkDayId, s.ServiceId).ToList();
+                TimeSlots = new ObservableCollection<TimeSlot>();
+                foreach (TimeSlot ts in timeS)
+                    TimeSlots.Add(ts);
+            }
+            else
+                TimeSlots = null;
+
+        }
 
         private ICommand _removeCommand;
 
@@ -100,6 +127,26 @@ namespace WpfApp1.ViewModel
                 return _removeCommand;
             }
             set { _removeCommand = value; }
+        }
+
+        public delegate void NewAppointment(TimeSlot timeSlot);
+        public NewAppointment NewApp { get; set; }
+
+        private ICommand _makeAppCommand;
+
+        public ICommand MakeAppCommand
+        {
+            get
+            {
+                if (_makeAppCommand == null)
+                    _makeAppCommand = new RelayCommand(obj =>
+                    {
+                        if (NewApp != null)
+                            NewApp((TimeSlot)obj);
+                    });
+                return _makeAppCommand;
+            }
+            set { _makeAppCommand = value; }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

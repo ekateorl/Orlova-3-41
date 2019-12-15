@@ -42,7 +42,7 @@ namespace DAL.Repository
                 TimeSpan time = request.ElementAt(i).Duration;
                 for (int j = i + 1; j < request.Count() && time <= s.Duration; j++)
                 {
-                    if (request.ElementAt(j).Beginning == request.ElementAt(i).Beginning + request.ElementAt(i).Duration)
+                    if (request.ElementAt(j).Beginning == request.ElementAt(j-1).Beginning + request.ElementAt(j-1).Duration)
                         time += request.ElementAt(j).Duration;
                     else break;
                 }

@@ -92,7 +92,7 @@ namespace WpfApp1.ViewModel
                 if (_appPageCommand == null)
                     _appPageCommand = new RelayCommand(obj =>
                     {
-                        nav.Navigate(new View.AppointmentPage(new AppointmentPageVM(crud)));
+                        nav.Navigate(new View.AppointmentPage(new AppointmentPageVM(crud, nav)));
                     });
                 return _appPageCommand;
             }
