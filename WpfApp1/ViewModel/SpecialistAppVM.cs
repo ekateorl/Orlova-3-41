@@ -97,13 +97,20 @@ namespace WpfApp1.ViewModel
             if (workDays.Count > 0)
             {
                 WorkDay workDay = workDays.Last();
-                List<TimeSlot>timeS= crud.MakeAppointments.SelectTime(workDay.WorkDayId, s.ServiceId).ToList();
+                Time = workDay.beginning.ToString();
+                Time = Time.Substring(0, Time.Length - 3);
+                Time += "-" + workDay.ending.ToString();
+                Time = Time.Substring(0, Time.Length - 3);
+                List<TimeSlot> timeS = crud.MakeAppointments.SelectTime(workDay.WorkDayId, s.ServiceId).ToList();
                 TimeSlots = new ObservableCollection<TimeSlot>();
                 foreach (TimeSlot ts in timeS)
                     TimeSlots.Add(ts);
             }
             else
+            {
+                Time = "Выходной";
                 TimeSlots = null;
+            }
 
         }
 

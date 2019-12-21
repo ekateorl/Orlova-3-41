@@ -17,6 +17,7 @@
             <Setter Property="Margin" Value="9"></Setter>
         </Style>
         <Style x:Key="NameTextStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Black"></Setter>
             <Setter Property="FontFamily" Value="Candara"></Setter>
             <Setter Property="FontSize" Value="16"></Setter>
             <Setter Property="VerticalAlignment" Value="Center"></Setter>
@@ -35,7 +36,7 @@
         <Style x:Key="TimeButtonStyle" TargetType="Button">
             <Setter Property="Height" Value="30"></Setter>
             <Setter Property="BorderThickness" Value="0"></Setter>
-            <Setter Property="Background" Value="#FFEBAFE9"></Setter>
+            <Setter Property="Background" Value="Purple"></Setter>
             <Setter Property="FontFamily" Value="Candara"></Setter>
             <Setter Property="FontSize" Value="16"></Setter>
             <Setter Property="Foreground" Value="White"></Setter>
@@ -57,8 +58,47 @@
                                 <MultiTrigger.Conditions>
                                     <Condition Property="IsMouseOver" Value="true"></Condition>
                                 </MultiTrigger.Conditions>
-                                <Setter Property="Background" TargetName="Bd" Value="#FFFFD5DB"></Setter>
+                                <Setter Property="Background" TargetName="Bd" Value="#6a006a"></Setter>
                             </MultiTrigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="#FFA956A9"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="BorderThickness" Value="0"></Setter>
+            <Setter Property="Background" Value="Purple"></Setter>
+            <Setter Property="TextElement.FontFamily" Value="Candara Light"></Setter>
+            <Setter Property="TextElement.Foreground" Value="White"></Setter>
+            <Setter Property="TextElement.FontSize" Value="14"></Setter>
+            <Setter Property="Height" Value="30"></Setter>
+            <Setter Property="Width" Value="120"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="Margin" Value="9,7,5,5"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Background="{TemplateBinding Background}"
+                            Padding="{TemplateBinding Padding}"
+                            SnapsToDevicePixels="true">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#6a006a"></Setter>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="#FFA956A9"></Setter>
+                            </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
@@ -76,128 +116,204 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource Header}" Text="Добавление новой записи"></TextBlock>
+        <ScrollViewer Grid.Column="0" Grid.Row="1">
+            <Grid  VerticalAlignment="Top">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0"  Margin="9,5,5,5"  Text="Категория" Style="{StaticResource NameTextStyle}" HorizontalAlignment="Left"></TextBlock>
+                <ComboBox Grid.Row="1"  Margin="9,5,5,5" ItemsSource="{Binding Categories}" DisplayMemberPath="Name"
+                      SelectedItem="{Binding SelectedCategory}" TextElement.FontFamily="Candara Light" FontSize="14">
+                    <ie:Interaction.Triggers>
+                        <ie:EventTrigger EventName="SelectionChanged">
+                            <ie:InvokeCommandAction Command="{Binding CategoryCommand}">
+                            </ie:InvokeCommandAction>
+                        </ie:EventTrigger>
+                    </ie:Interaction.Triggers>
+                </ComboBox>
+                <TextBlock Grid.Row="2" Margin="9,7,5,5" Text="Услуга" Style="{StaticResource NameTextStyle}" HorizontalAlignment="Left"></TextBlock>
+                <ComboBox Grid.Row="3"  Margin="9,5,5,5" ItemsSource="{Binding Services}" DisplayMemberPath="Name" 
+                      SelectedItem="{Binding SelectedService}" TextElement.FontFamily="Candara Light" FontSize="14">
+                    <ie:Interaction.Triggers>
+                        <ie:EventTrigger EventName="SelectionChanged">
+                            <ie:InvokeCommandAction Command="{Binding ServiceCommand}">
+                            </ie:InvokeCommandAction>
+                        </ie:EventTrigger>
+                    </ie:Interaction.Triggers>
+                </ComboBox>
+                <Calendar Grid.Row="5"  Margin="9,7,5,5" FontFamily="Candara" SelectedDate="{Binding Date}" HorizontalAlignment="Center">
+                    <ie:Interaction.Triggers>
+                        <ie:EventTrigger EventName="SelectedDatesChanged">
+                            <ie:InvokeCommandAction Command="{Binding DateCommand}" CommandParameter="{Binding SelectedDate}">
+                            </ie:InvokeCommandAction>
+                        </ie:EventTrigger>
+                    </ie:Interaction.Triggers>
+                </Calendar>
+                <Button Grid.Row="6" Command="{Binding AddClientCommand}" Style="{StaticResource ButtonStyle}">Добавить клиента</Button>
+                <ListBox ItemsSource="{Binding Clients}" Grid.Row="7" SelectedItem="{Binding SelectedClient}" MaxHeight="350" MinWidth="300"
+                         Margin="9,7,5,5">
+                    <ie:Interaction.Triggers>
+                        <ie:EventTrigger EventName="SelectionChanged">
+                            <ie:InvokeCommandAction Command="{Binding ClientCommand}">
+                            </ie:InvokeCommandAction>
+                        </ie:EventTrigger>
+                    </ie:Interaction.Triggers>
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="TextElement.FontFamily" Value="Candara Light"></Setter>
+                            <Setter Property="TextElement.FontSize" Value="14"></Setter>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <Border x:Name="Bd"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Background="{TemplateBinding Background}"
+                            Padding="{TemplateBinding Padding}"
+                            SnapsToDevicePixels="true">
+                                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <MultiTrigger>
+                                                <MultiTrigger.Conditions>
+                                                    <Condition Property="IsMouseOver" Value="true"></Condition>
+                                                    <Condition Property="IsSelected" Value="false"></Condition>
+                                                </MultiTrigger.Conditions>
+                                                <Setter Property="Background" TargetName="Bd" Value="#FFFFD5DB"></Setter>
+                                            </MultiTrigger>
+                                            <Trigger Property="IsSelected" Value="true">
+                                                <Setter Property="Background" TargetName="Bd" Value="Pink"></Setter>
 
-        <Grid Grid.Column="0" Grid.Row="1" VerticalAlignment="Top">
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="{Binding Name}" Grid.Row="0" TextWrapping="Wrap" FontFamily="Candara"></TextBlock>
+                                <TextBlock Text="{Binding Birthdate}" Grid.Row="1" Foreground="Gray"></TextBlock>
+                                <TextBlock Text="{Binding Phone}" Grid.Row="2" Foreground="Purple"></TextBlock>
+                                <TextBlock Text="{Binding Email}" Grid.Row="3" Foreground="Purple"></TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </ScrollViewer>
+
+        <Grid Grid.Row="1" Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0"  Margin="9,5,5,5"  Text="Категория" Style="{StaticResource NameTextStyle}"></TextBlock>
-            <ComboBox Grid.Row="1"  Margin="9,5,5,5" ItemsSource="{Binding Categories}" DisplayMemberPath="Name"
-                      SelectedItem="{Binding SelectedCategory}">
-                <ie:Interaction.Triggers>
-                    <ie:EventTrigger EventName="SelectionChanged">
-                        <ie:InvokeCommandAction Command="{Binding CategoryCommand}">
-                        </ie:InvokeCommandAction>
-                    </ie:EventTrigger>
-                </ie:Interaction.Triggers>
-            </ComboBox>
-            <TextBlock Grid.Row="2" Margin="9,7,5,5" Text="Услуга" Style="{StaticResource NameTextStyle}"></TextBlock>
-            <ComboBox Grid.Row="3"  Margin="9,5,5,5" ItemsSource="{Binding Services}" DisplayMemberPath="Name" 
-                      SelectedItem="{Binding SelectedService}">
-                <ie:Interaction.Triggers>
-                    <ie:EventTrigger EventName="SelectionChanged">
-                        <ie:InvokeCommandAction Command="{Binding ServiceCommand}">
-                        </ie:InvokeCommandAction>
-                    </ie:EventTrigger>
-                </ie:Interaction.Triggers>
-            </ComboBox>
-            <Calendar Grid.Row="6"  Margin="9,7,5,5" FontFamily="Candara" SelectedDate="{Binding Date}">
-                <ie:Interaction.Triggers>
-                    <ie:EventTrigger EventName="SelectedDatesChanged">
-                        <ie:InvokeCommandAction Command="{Binding DateCommand}" CommandParameter="{Binding SelectedDate}">
-                        </ie:InvokeCommandAction>
-                    </ie:EventTrigger>
-                </ie:Interaction.Triggers>
-            </Calendar>
-        </Grid>
-
-        <ListBox Grid.Row="1" Grid.Column="1"  Width="Auto" ItemsSource="{Binding Specialists}">
-            <ListBox.ItemContainerStyle>
-                <Style TargetType="ListBoxItem">
-                    <Setter Property="VerticalAlignment" Value="Top"></Setter>
-                    <Setter Property="Margin" Value="5"></Setter>
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="ListBoxItem">
-                                <Border x:Name="Bd"
+            <StackPanel Orientation="Horizontal" Grid.Row="1" TextElement.Foreground="Purple" TextElement.FontSize="20" TextElement.FontFamily="Candara" >
+                <TextBlock Margin="9,7,7,7">Стоимость:</TextBlock>
+                <TextBlock Margin="7">1500</TextBlock>
+                <TextBlock Margin="7">руб.</TextBlock>
+            </StackPanel>
+            <ListBox Grid.Row="0" Width="Auto" ItemsSource="{Binding Specialists}" IsEnabled="{Binding IfClientSelected}">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="VerticalAlignment" Value="Top"></Setter>
+                        <Setter Property="Margin" Value="5"></Setter>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <Border x:Name="Bd"
                                             BorderBrush="{TemplateBinding BorderBrush}"
                                             BorderThickness="{TemplateBinding BorderThickness}"
                                             Background="{TemplateBinding Background}"
                                             Padding="{TemplateBinding Padding}"
                                             SnapsToDevicePixels="true">
-                                    <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-                                </Border>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </ListBox.ItemContainerStyle>
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal" ></StackPanel>
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid Width="170" VerticalAlignment="Top">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="70"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <Ellipse Margin="5" Height ="80" Width="80" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="0">
-                            <Ellipse.Fill>
-                                <ImageBrush ImageSource="{Binding Image}" Stretch="UniformToFill"></ImageBrush>
-                            </Ellipse.Fill>
-                        </Ellipse>
-                        <TextBlock Text="{Binding Name}" Style="{StaticResource NameTextStyle}" Grid.Row="1"></TextBlock>
-                        <TextBlock Text="{Binding Time}" Style="{StaticResource HoursTextStyle}" Grid.Row="2"></TextBlock>
-                        <ListBox Grid.Row="3"  BorderThickness="0"  ScrollViewer.HorizontalScrollBarVisibility="Hidden" Margin="10,7,10,0"
-                                 ItemsSource="{Binding TimeSlots}">
-                            <ListBox.ItemContainerStyle>
-                                <Style TargetType="ListBoxItem">
-                                    <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
-                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
-                                    <Setter Property="Padding" Value="0"></Setter>
-                                    <Setter Property="Margin" Value="5,2.5,5,2.5"></Setter>
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="ListBoxItem">
-                                                <Border x:Name="Bd"
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" ></StackPanel>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Width="170" VerticalAlignment="Top">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="70"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Ellipse Margin="5" Height ="80" Width="80" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="0">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="{Binding Image}" Stretch="UniformToFill"></ImageBrush>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <TextBlock Text="{Binding Name}" Style="{StaticResource NameTextStyle}" Grid.Row="1"></TextBlock>
+                            <TextBlock Text="{Binding Time}" Style="{StaticResource HoursTextStyle}" Grid.Row="2"></TextBlock>
+                            <ListBox Grid.Row="3"  BorderThickness="0"  ScrollViewer.HorizontalScrollBarVisibility="Hidden" Margin="10,7,10,0"
+                                 ItemsSource="{Binding TimeSlots}" >
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem">
+                                        <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                                        <Setter Property="Padding" Value="0"></Setter>
+                                        <Setter Property="Margin" Value="5,2.5,5,2.5"></Setter>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="ListBoxItem">
+                                                    <Border x:Name="Bd"
                                             BorderBrush="{TemplateBinding BorderBrush}"
                                             BorderThickness="{TemplateBinding BorderThickness}"
                                             Background="{TemplateBinding Background}"
                                             Padding="{TemplateBinding Padding}"
                                             SnapsToDevicePixels="true">
-                                                    <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-                                                </Border>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </ListBox.ItemContainerStyle>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
 
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <Button Style="{StaticResource TimeButtonStyle}" Content="{Binding Beginning}"
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Button Style="{StaticResource TimeButtonStyle}" Content="{Binding Beginning}"
                                             Command="{Binding DataContext.MakeAppCommand, RelativeSource={RelativeSource FindAncestor,
                                                              AncestorType={x:Type ListBox}}}" CommandParameter="{Binding}"></Button>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                    </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
     </Grid>
 </Page>

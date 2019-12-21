@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using DAL.Entities;
 using DAL.Interfaces;
+using WpfApp1.View;
 
 namespace WpfApp1.ViewModel
 {
@@ -16,13 +17,44 @@ namespace WpfApp1.ViewModel
     {
         IDbRepository crud;
 
+        private bool ifClientSelected;
+        public bool IfClientSelected
+        {
+            get { return ifClientSelected; }
+            set
+            {
+                ifClientSelected = value;
+                OnPropertyChanged("IfClientSelected");
+            }
+        }
+
         public DateTime Date { get; set; }
 
         public Category SelectedCategory { get; set; }
 
         public Service SelectedService { get; set; }
 
-        public List<Category> Categories { get; set; }
+        private Client selectedClient;
+
+        public Client SelectedClient
+        {
+            get { return selectedClient; }
+            set
+            {
+                selectedClient = value;
+                OnPropertyChanged("SelectedClient");
+            }
+        }
+
+        private ObservableCollection<Category> categories;
+        public ObservableCollection<Category> Categories {
+            get { return categories; }
+            set
+            {
+                categories = value;
+                OnPropertyChanged("Categories");
+            }
+          }
 
         private List<Service> services;
         public List<Service> Services
@@ -44,14 +76,29 @@ namespace WpfApp1.ViewModel
                 specialists = value;
                 OnPropertyChanged("Specialists");
             }
+        }
 
+        private List<Client> clients;
+        public List<Client> Clients
+        {
+            get { return clients; }
+            set
+            {
+                clients = value;
+                OnPropertyChanged("Clients");
+            }
         }
 
         public MakeAppointmentVM(IDbRepository crud)
         {
             this.crud = crud;
-            Categories = crud.Categories.GetList();
+            Categories = new ObservableCollection<Category>();
+            List<Category>Categ = crud.Categories.GetList();
+            foreach (Category c in Categ)
+                Categories.Add(c);
             Specialists = new ObservableCollection<SpecialistAppVM>();
+            Clients = crud.Clients.GetList().OrderBy(i => i.Name).ToList();
+            IfClientSelected = false;
         }
 
         private ICommand _categoryCommand;
@@ -122,7 +169,7 @@ namespace WpfApp1.ViewModel
             {
                 Done = false,
                 Price = SelectedService.Price,
-                ClientFk = 1,
+                ClientFk = SelectedClient.ClientId,
                 ServiceFk = SelectedService.ServiceId,
                 Service = SelectedService,
                 ReceptionistFk = 5,
@@ -144,6 +191,47 @@ namespace WpfApp1.ViewModel
             foreach (SpecialistAppVM s in Specialists)
                 s.SelectTime(Date, SelectedService);
         }
+
+        private ICommand _addClientCommand;
+
+        public ICommand AddClientCommand
+        {
+            get
+            {
+                if (_addClientCommand == null)
+                    _addClientCommand = new RelayCommand(obj =>
+                    {
+                        Client client = new Client();
+                        var dialog = new AddClient(new AddClientVM(client));
+                        if (dialog.ShowDialog() == true)
+                        {
+                            crud.Clients.Create(client);
+                            crud.Save();
+                            Clients=crud.Clients.GetList().OrderBy(i=>i.Name).ToList();
+                            SelectedClient = client;
+                        }
+                    });
+                return _addClientCommand;
+            }
+            set { _addClientCommand = value; }
+        }
+
+        private ICommand _clientCommand;
+
+        public ICommand ClientCommand
+        {
+            get
+            {
+                if (_clientCommand == null)
+                    _clientCommand = new RelayCommand(obj =>
+                    {
+                        IfClientSelected = SelectedClient != null;
+                    });
+                return _clientCommand;
+            }
+            set { _clientCommand = value; }
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")

@@ -30,12 +30,6 @@
                         <ControlTemplate.Triggers>
                             <MultiTrigger>
                                 <MultiTrigger.Conditions>
-                                    <Condition Property="IsSelected" Value="true"></Condition>
-                                </MultiTrigger.Conditions>
-                                <Setter Property="Background" TargetName="Bd" Value="Pink"></Setter>
-                            </MultiTrigger>
-                            <MultiTrigger>
-                                <MultiTrigger.Conditions>
                                     <Condition Property="IsSelected" Value="false"></Condition>
                                     <Condition Property="IsMouseOver" Value="true"></Condition>
                                 </MultiTrigger.Conditions>

@@ -19,6 +19,7 @@ namespace DAL.Interfaces
         IRepository<UserType> UserTypes { get; }
         IRepository<WorkDay> WorkDays { get; }
         IMakeAppointRepository MakeAppointments { get; }
+        IReportsRepository Reports { get; }
         int Save();
     }
 }

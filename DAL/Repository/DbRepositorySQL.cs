@@ -21,6 +21,7 @@ namespace DAL.Repository
         private UserTypeRepositorySQL userTypeRepository;
         private WorkDayRepositorySQL workDayRepository;
         private MakeAppointRepositorySQL makeAppointRepository;
+        private ReportRepositorySQL reportRepository;
 
         public DbRepositorySQL()
         {
@@ -126,7 +127,15 @@ namespace DAL.Repository
             }
         }
 
-      
+        public IReportsRepository Reports
+        {
+            get
+            {
+                if (reportRepository == null)
+                    reportRepository = new ReportRepositorySQL(db);
+                return reportRepository;
+            }
+        }
 
         public int Save()
         {

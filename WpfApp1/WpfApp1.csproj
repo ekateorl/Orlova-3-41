@@ -64,21 +64,30 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModel\AddClientVM.cs" />
     <Compile Include="ViewModel\AppointmentPageVM.cs" />
     <Compile Include="ViewModel\AppointmentVM.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\CategoryListViewModel.cs" />
+    <Compile Include="ViewModel\IRequireViewIdentification.cs" />
     <Compile Include="ViewModel\MakeAppointmentVM.cs" />
     <Compile Include="ViewModel\ServiceInfoViewModel.cs" />
     <Compile Include="ViewModel\ServiceListViewModel.cs" />
     <Compile Include="ViewModel\SpecialistAppVM.cs" />
     <Compile Include="ViewModel\SpecialistInfoViewModel.cs" />
     <Compile Include="ViewModel\SpecialistPageViewModel.cs" />
+    <Compile Include="ViewModel\WindowManager.cs" />
+    <Compile Include="View\AddClient.xaml.cs">
+      <DependentUpon>AddClient.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\AppointmentPage.xaml.cs">
       <DependentUpon>AppointmentPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\CategoryList.xaml.cs">
       <DependentUpon>CategoryList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Login.xaml.cs">
+      <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MakeAppointmentPage.xaml.cs">
       <DependentUpon>MakeAppointmentPage.xaml</DependentUpon>
@@ -95,11 +104,19 @@
     <Compile Include="View\SpecialistList.xaml.cs">
       <DependentUpon>SpecialistList.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\AddClient.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\AppointmentPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\CategoryList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

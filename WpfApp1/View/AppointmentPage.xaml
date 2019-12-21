@@ -44,6 +44,40 @@
             <Setter Property="Foreground" Value="Purple"></Setter>
             <Setter Property="TextWrapping" Value="Wrap"></Setter>
         </Style>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="BorderThickness" Value="0"></Setter>
+            <Setter Property="Background" Value="Purple"></Setter>
+            <Setter Property="TextElement.FontFamily" Value="Candara Light"></Setter>
+            <Setter Property="TextElement.Foreground" Value="White"></Setter>
+            <Setter Property="TextElement.FontSize" Value="14"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="Margin" Value="9,7,5,5"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Background="{TemplateBinding Background}"
+                            Padding="{TemplateBinding Padding}"
+                            SnapsToDevicePixels="true">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#6a006a"></Setter>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="#FFA956A9"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Page.Resources>
 
     <ScrollViewer>
@@ -67,8 +101,8 @@
                         </ie:EventTrigger>
                     </ie:Interaction.Triggers>
                 </Calendar>
-                <Button Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" Height="30" Margin="9" 
-                        Command="{Binding NewAppCommand}">Новая запись</Button>
+                <Button Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" Height="30" Width="120" Margin="9" 
+                        Command="{Binding NewAppCommand}" Style="{StaticResource ButtonStyle}">Новая запись</Button>
                 <ListBox Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" ItemsSource="{Binding Specialists}" Width="Auto">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
@@ -147,10 +181,10 @@
                                                     <ColumnDefinition Width="1*"></ColumnDefinition>
                                                 </Grid.ColumnDefinitions>
                                                 <Grid Grid.Column="1" Background="Purple">
-                                                    <Button VerticalAlignment="Top" 
-                                                            Height="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth}"
+                                                    <Button  Style="{StaticResource ButtonStyle}" Margin="0" VerticalAlignment="Top" HorizontalAlignment="Stretch"
+                                                            Height="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth}" TextElement.FontSize="12"
                                                              Command="{Binding DataContext.RemoveCommand, RelativeSource={RelativeSource FindAncestor,
-                                                             AncestorType={x:Type ListBox}}}" CommandParameter="{Binding}">
+                                                             AncestorType={x:Type ListBox}}}" CommandParameter="{Binding}" >
                                                         x</Button>
                                                 </Grid>
                                                 <Grid Grid.Column="0" Margin="5">
