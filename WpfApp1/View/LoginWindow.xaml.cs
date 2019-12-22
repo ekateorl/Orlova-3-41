@@ -1,5 +1,4 @@
-﻿using Ninject;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,26 +10,20 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfApp1.ViewModel;
-using WpfApp1.Util;
-using DAL.Interfaces;
 
-namespace WpfApp1
+namespace WpfApp1.View
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для Login.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class LoginWindow : Window
     {
-        public MainWindow(ApplicationViewModel dataContext)
+        public LoginWindow(LoginWindowViewModel dataContext)
         {
             InitializeComponent();
-            dataContext.nav = MainFrame.NavigationService;
             DataContext = dataContext;
-            
         }
-        
     }
 }

@@ -13,44 +13,29 @@ using System.ComponentModel;
 using System.Windows.Input;
 using System.Windows.Navigation;
 using System.Runtime.CompilerServices;
+using System.Windows;
 
 namespace WpfApp1.ViewModel
 {
-    public class ApplicationViewModel
+    public class ApplicationViewModel 
     {
         IDbRepository crud;
-        NavigationService nav;
+        public NavigationService nav { get; set; }
+        User user;
 
+        public Visibility ManagerButtonVisibility { get; set; }
 
-        public ApplicationViewModel(IDbRepository crud, NavigationService nav)
+        public ApplicationViewModel(IDbRepository crud, User user)
         {
-            this.nav = nav;
+          //  this.nav = nav;
             this.crud = crud;
-            /* List<TimeSlotModel> tsm;
-             TimeSlots = new List<TimeSlotViewModel>();
-             scheduleTable = new DataTable();
-             DataColumn column = new DataColumn();
-             DataRow row;
-             column.ColumnName = "Time";
-             column.DataType = Type.GetType("System.String");
-             scheduleTable.Columns.Add(column);
-             for (TimeSpan t = new TimeSpan(9, 0, 0); t < new TimeSpan(13, 0, 0); t.Add(new TimeSpan(0, 30, 0)))
-             {
-                 row = scheduleTable.NewRow();
-                 row["Time"] = t.ToString();
-             }
-             DateTime date1 = new DateTime(2019, 10, 30);
-             DateTime date2 = new DateTime(2019, 10, 31);
-             List<WorkDayModel> wdm = apSer.SelectWorkDay(3);
-             foreach(WorkDayModel workDay in wdm)
-             {
-                 column = new DataColumn();
-                 column.DataType = Type.GetType("System.Bool");
-
-                 tsm = schedule.GetTimeSlots(workDay.WorkDayId);
-             }*/
+            this.user = user;
+            if (user.UserType.Name == "Менеджер")
+                ManagerButtonVisibility = Visibility.Visible;
+            else
+                ManagerButtonVisibility = Visibility.Collapsed;
         }
-        
+
         private ICommand _specialistListCommand;
  
         public ICommand SpecialistListCommand
@@ -98,6 +83,5 @@ namespace WpfApp1.ViewModel
             }
             set { _appPageCommand = value; }
         }
-
     }
 }

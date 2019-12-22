@@ -1,0 +1,124 @@
+﻿<Page x:Class="WpfApp1.View.SchedulePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp1.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="650"
+      Title="SchedulePage">
+    <Page.Resources>
+        <Style x:Key="Header" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Candara"></Setter>
+            <Setter Property="FontSize" Value="32"></Setter>
+            <Setter Property="Foreground" Value="Purple"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="Margin" Value="9"></Setter>
+        </Style>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="BorderThickness" Value="0"></Setter>
+            <Setter Property="Background" Value="Purple"></Setter>
+            <Setter Property="TextElement.FontFamily" Value="Candara Light"></Setter>
+            <Setter Property="TextElement.Foreground" Value="White"></Setter>
+            <Setter Property="TextElement.FontSize" Value="16"></Setter>
+            <Setter Property="Height" Value="30"></Setter>
+            <Setter Property="Width" Value="100"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Right"></Setter>
+            <Setter Property="VerticalAlignment" Value="Bottom"></Setter>
+            <Setter Property="Margin" Value="9"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Background="{TemplateBinding Background}"
+                            Padding="{TemplateBinding Padding}"
+                            SnapsToDevicePixels="true">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#6a006a"></Setter>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="#FFA956A9"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Grid Background="White">
+        <ScrollViewer>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Style="{StaticResource Header}" Text="Расписание"></TextBlock>
+                <StackPanel Orientation="Horizontal" Grid.Row="1">
+                    <CheckBox Margin="9" VerticalAlignment="Center">Выходной</CheckBox>
+                    <Button Style="{StaticResource ButtonStyle}">Сохранить</Button>
+                </StackPanel>
+                <StackPanel Grid.Row="2" Orientation="Vertical" Width="Auto" >
+                    <Grid Margin="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition  Width="200"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="1">Пн</TextBlock>
+                        <TextBlock Grid.Column="2">Вт</TextBlock>
+                        <TextBlock Grid.Column="3">Ср</TextBlock>
+                        <TextBlock Grid.Column="4">Чт</TextBlock>
+                        <TextBlock Grid.Column="5">Пт</TextBlock>
+                        <TextBlock Grid.Column="6">Сб</TextBlock>
+                        <TextBlock Grid.Column="7">Вс</TextBlock>
+                    </Grid>
+                    <ListBox Name="myListBox" ScrollViewer.HorizontalScrollBarVisibility="Hidden" BorderThickness="0">
+                        <ListBoxItem HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Margin="0" Padding="0">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition  Width="200"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        
+                                    </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0">Пн</TextBlock>
+                                    <TextBlock Grid.Column="1">Вт</TextBlock>
+                                    <TextBlock Grid.Column="2">Ср</TextBlock>
+                                    <TextBlock Grid.Column="3">Чт</TextBlock>
+                                    <TextBlock Grid.Column="4">Пт</TextBlock>
+                                    <TextBlock Grid.Column="5">Сб</TextBlock>
+                                    <TextBlock Grid.Column="6">Вс</TextBlock>
+                                </Grid>
+                                
+                            </Grid>
+                        </ListBoxItem>
+                    </ListBox>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Page>

@@ -67,9 +67,10 @@
     <Compile Include="ViewModel\AddClientVM.cs" />
     <Compile Include="ViewModel\AppointmentPageVM.cs" />
     <Compile Include="ViewModel\AppointmentVM.cs" />
-    <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\AuthInfo.cs" />
     <Compile Include="ViewModel\CategoryListViewModel.cs" />
     <Compile Include="ViewModel\IRequireViewIdentification.cs" />
+    <Compile Include="ViewModel\LoginWindowViewModel.cs" />
     <Compile Include="ViewModel\MakeAppointmentVM.cs" />
     <Compile Include="ViewModel\ServiceInfoViewModel.cs" />
     <Compile Include="ViewModel\ServiceListViewModel.cs" />
@@ -86,11 +87,14 @@
     <Compile Include="View\CategoryList.xaml.cs">
       <DependentUpon>CategoryList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Login.xaml.cs">
-      <DependentUpon>Login.xaml</DependentUpon>
+    <Compile Include="View\LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MakeAppointmentPage.xaml.cs">
       <DependentUpon>MakeAppointmentPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SchedulePage.xaml.cs">
+      <DependentUpon>SchedulePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ServiceInfo.xaml.cs">
       <DependentUpon>ServiceInfo.xaml</DependentUpon>
@@ -116,7 +120,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Login.xaml">
+    <Page Include="View\LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -136,6 +140,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\MakeAppointmentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SchedulePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
