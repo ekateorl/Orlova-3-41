@@ -1,0 +1,282 @@
+﻿<Page x:Class="WpfApp1.View.ReportPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp1.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="650"
+      Title="ReportPage">
+    <Page.Resources>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="BorderThickness" Value="0"></Setter>
+            <Setter Property="Background" Value="Purple"></Setter>
+            <Setter Property="TextElement.FontFamily" Value="Candara Light"></Setter>
+            <Setter Property="TextElement.Foreground" Value="White"></Setter>
+            <Setter Property="TextElement.FontSize" Value="14"></Setter>
+            <Setter Property="Height" Value="25"></Setter>
+            <Setter Property="Width" Value="75"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="Margin" Value="5"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Background="{TemplateBinding Background}"
+                            Padding="{TemplateBinding Padding}"
+                            SnapsToDevicePixels="true">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#6a006a"></Setter>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="#FFA956A9"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="Header" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Candara"></Setter>
+            <Setter Property="FontSize" Value="32"></Setter>
+            <Setter Property="Foreground" Value="Purple"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="Margin" Value="9"></Setter>
+        </Style>
+        <Style x:Key="TextStyle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Candara Light"></Setter>
+            <Setter Property="FontSize" Value="14"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="Margin" Value="9,0,0,0"></Setter>
+        </Style>
+    </Page.Resources>
+    
+    <Grid Background="White">
+        <ScrollViewer>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Style="{StaticResource Header}" Text="Отчёты"></TextBlock>
+                <TabControl Grid.Row="1">
+                    <TabControl.ItemContainerStyle>
+                        <Style TargetType="TabItem">
+                            <Setter Property="TextElement.FontFamily" Value="Candara"></Setter>
+                            <Setter Property="TextElement.FontSize" Value="14"></Setter>
+                        </Style>
+                    </TabControl.ItemContainerStyle>
+                    <TabItem Header="Оказанные услуги">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                <TextBlock Text="Начальная дата:" Style="{StaticResource TextStyle}"></TextBlock>
+                                <DatePicker Margin="7" SelectedDate="{Binding ServInfoDate1}"></DatePicker>
+                                <TextBlock Text="Конечная дата:" Style="{StaticResource TextStyle}"></TextBlock>
+                                <DatePicker Margin="7" SelectedDate="{Binding ServInfoDate2}"></DatePicker>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                <TextBlock Text="Мастер (необязательно):" Style="{StaticResource TextStyle}"></TextBlock>
+                                <ComboBox Margin="7" MinWidth="150" Width="Auto" ItemsSource="{Binding Specialists}" SelectedItem="{Binding SelectedSpecialistSI}"
+                                          DisplayMemberPath="Name"></ComboBox>
+                                <Button Style="{StaticResource ButtonStyle}" Command="{Binding RemoveSpecialistCommand}">Убрать</Button>
+                            </StackPanel>
+                            <Button Style="{StaticResource ButtonStyle}" Grid.Row="2" Margin="9,7,7,7" HorizontalAlignment="Left"
+                                    Command="{Binding ServiceInfoCommand}">Применить</Button>
+                            <ListBox Grid.Row="3" Margin="9,7,7,7" ItemsSource="{Binding ServiceInfos}" HorizontalContentAlignment="Stretch">
+                                <!--<ListView.View>
+                                    <GridView>
+                                        <GridView.Columns>
+                                            <GridViewColumn>
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Name}"></TextBlock>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                                <GridViewColumn.Header>
+                                                    <TextBlock Text="Услуга"></TextBlock>
+                                                </GridViewColumn.Header>
+                                            </GridViewColumn>
+                                            <GridViewColumn>
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Quantity}"></TextBlock>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                                <GridViewColumn.Header>
+                                                    <TextBlock Text="Количество"></TextBlock>
+                                                </GridViewColumn.Header>
+                                            </GridViewColumn>
+                                            <GridViewColumn>
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock  Text="{Binding CountCostString}"></TextBlock>
+                                                            <TextBlock Text="руб." Margin="7,0,0,0"></TextBlock>
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                                <GridViewColumn.Header>
+                                                    <TextBlock Text="Общая стоимость"></TextBlock>
+                                                </GridViewColumn.Header>
+                                            </GridViewColumn>
+                                        </GridView.Columns>
+                                    </GridView>
+                                </ListView.View>-->
+                                <!--<ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Text="{Binding Name}"></TextBlock>
+                                            <TextBlock Grid.Column="1" Text="{Binding Quantity}"></TextBlock>
+                                            <StackPanel Orientation="Horizontal" Grid.Column="2">
+                                                <TextBlock  Text="{Binding CountCostString}"></TextBlock>
+                                                <TextBlock Text="руб." Margin="7,0,0,0"></TextBlock>
+                                            </StackPanel>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>-->
+                                <ListBox.Template>
+                                    <ControlTemplate>
+                                        <DockPanel LastChildFill="True" >
+                                            <Grid DockPanel.Dock="Top" Height="30" >
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" ></ColumnDefinition>
+                                                    <ColumnDefinition  SharedSizeGroup="С1"></ColumnDefinition>
+                                                    <ColumnDefinition  SharedSizeGroup="С1"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <Label Grid.Column="0">Услуга</Label>
+                                                <Label Grid.Column="1">Количество</Label>
+                                                <Label Grid.Column="2">Общая стоимость</Label>
+                                            </Grid>
+                                            <ItemsPresenter></ItemsPresenter>
+                                        </DockPanel>
+                                    </ControlTemplate>
+                                </ListBox.Template>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" ></ColumnDefinition>
+                                                <ColumnDefinition SharedSizeGroup="С1"></ColumnDefinition>
+                                                <ColumnDefinition  SharedSizeGroup="С1" ></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Text="{Binding Name}"></TextBlock>
+                                            <TextBlock Grid.Column="1" Text="{Binding Quantity}"  Margin="7,0,0,0"></TextBlock>
+                                            <StackPanel Orientation="Horizontal" Grid.Column="2" Margin="7,0,0,0">
+                                                <TextBlock  Text="{Binding CountCostString}"></TextBlock>
+                                                <TextBlock Text="руб." Margin="7,0,0,0"></TextBlock>
+                                            </StackPanel>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Отработанные часы">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                <TextBlock Text="Начальная дата:" Style="{StaticResource TextStyle}"></TextBlock>
+                                <DatePicker Margin="7" SelectedDate="{Binding TimeInfoDate1}"></DatePicker>
+                                <TextBlock Text="Конечная дата:" Style="{StaticResource TextStyle}"></TextBlock>
+                                <DatePicker Margin="7" SelectedDate="{Binding TimeInfoDate2}"></DatePicker>
+                            </StackPanel>
+                            <Button Style="{StaticResource ButtonStyle}" Grid.Row="1" Margin="9,7,7,7" HorizontalAlignment="Left"
+                                    Command="{Binding TimeInfoCommand}">Применить</Button>
+                            <ListBox Grid.IsSharedSizeScope="True" Grid.Row="2" Margin="9,7,7,7" ItemsSource="{Binding TimeInfos}" HorizontalContentAlignment="Stretch">
+                                <!--<ListView.View>
+                                    <GridView>
+                                        <GridView.Columns>
+                                            <GridViewColumn>
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Specialist.Name}"></TextBlock>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                                <GridViewColumn.Header>
+                                                    <TextBlock Text="Мастер"></TextBlock>
+                                                </GridViewColumn.Header>
+                                            </GridViewColumn>
+                                            <GridViewColumn>
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding AllTime}"></TextBlock>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                                <GridViewColumn.Header>
+                                                    <TextBlock Text="Всего отработано"></TextBlock>
+                                                </GridViewColumn.Header>
+                                            </GridViewColumn>
+                                            <GridViewColumn>
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding AppTime}"></TextBlock>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                                <GridViewColumn.Header>
+                                                    <TextBlock Text="Время оказания услуг"></TextBlock>
+                                                </GridViewColumn.Header>
+                                            </GridViewColumn>
+                                        </GridView.Columns>
+                                    </GridView>
+                                </ListView.View>-->
+                                <ListBox.Template>
+                                    <ControlTemplate>
+                                        <DockPanel LastChildFill="True" >
+                                            <Grid DockPanel.Dock="Top" Height="30" >
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" ></ColumnDefinition>
+                                                    <ColumnDefinition  SharedSizeGroup="С1"></ColumnDefinition>
+                                                    <ColumnDefinition  SharedSizeGroup="С1"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <Label Grid.Column="0">ФИО</Label>
+                                                <Label Grid.Column="1">Всего отработано</Label>
+                                                <Label Grid.Column="2">Время оказания услуг</Label>
+                                            </Grid>
+                                            <ItemsPresenter></ItemsPresenter>
+                                        </DockPanel>
+                                    </ControlTemplate>
+                                </ListBox.Template>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" ></ColumnDefinition>
+                                                <ColumnDefinition SharedSizeGroup="С1"></ColumnDefinition>
+                                                <ColumnDefinition  SharedSizeGroup="С1" ></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Text="{Binding Specialist.Name}"></TextBlock>
+                                            <TextBlock Grid.Column="1" Text="{Binding AllTime}" Margin="7,0,0,0"></TextBlock>
+                                            <TextBlock Grid.Column="2" Text="{Binding AppTime}" Margin="7,0,0,0"></TextBlock>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Page>

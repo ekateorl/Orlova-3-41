@@ -10,18 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfApp1.ViewModel;
 
 namespace WpfApp1.View
 {
     /// <summary>
-    /// Логика взаимодействия для SchedulePage.xaml
+    /// Логика взаимодействия для AskDialog.xaml
     /// </summary>
-    public partial class SchedulePage : Page
+    public partial class AskDialog : Window
     {
-        public SchedulePage(SchedulePageVM dataContext)
+        public AskDialog(DialogVM dataContext)
         {
             InitializeComponent();
             DataContext = dataContext;

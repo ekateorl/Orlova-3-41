@@ -32,7 +32,16 @@ namespace WpfApp1.ViewModel
 
         public Category SelectedCategory { get; set; }
 
-        public Service SelectedService { get; set; }
+        private Service selectedService;
+        public Service SelectedService
+        {
+            get { return selectedService; }
+            set
+            {
+                selectedService = value;
+                OnPropertyChanged("SelectedService");
+            }
+        }
 
         private Client selectedClient;
 
@@ -170,26 +179,31 @@ namespace WpfApp1.ViewModel
                 Done = false,
                 Price = SelectedService.Price,
                 ClientFk = SelectedClient.ClientId,
+                Client = crud.Clients.GetItem(SelectedClient.ClientId),
                 ServiceFk = SelectedService.ServiceId,
                 Service = SelectedService,
                 ReceptionistFk = 5,
                 TimeSlotFk = timeSlot.TimeSlotId,
                 TimeSlot = timeSlot
             };
-            crud.Appointments.Create(appointment);
-            var ts = crud.MakeAppointments.SelectTime(timeSlot.WorkDayFk, timeSlot.Beginning).ToList();
-            TimeSpan duration = SelectedService.Duration;
-            TimeSpan time = new TimeSpan(0);
-            for (int i = 0; i < ts.Count && time <= duration; i++)
+            var dialog = new AppConfDialog(new AppConfDialogVM(new AppointmentVM(appointment, crud)));
+            if (dialog.ShowDialog() == true)
             {
-                ts.ElementAt(i).AppointmentFk = appointment.AppointmentId;
-                ts.ElementAt(i).Appointment1 = appointment;
-                time += ts.ElementAt(i).Duration;
-            }
-            crud.Save();
+                crud.Appointments.Create(appointment);
+                var ts = crud.MakeAppointments.SelectTime(timeSlot.WorkDayFk, timeSlot.Beginning).ToList();
+                TimeSpan duration = SelectedService.Duration;
+                TimeSpan time = new TimeSpan(0);
+                for (int i = 0; i < ts.Count && time <= duration; i++)
+                {
+                    ts.ElementAt(i).AppointmentFk = appointment.AppointmentId;
+                    ts.ElementAt(i).Appointment1 = appointment;
+                    time += ts.ElementAt(i).Duration;
+                }
+                crud.Save();
 
-            foreach (SpecialistAppVM s in Specialists)
-                s.SelectTime(Date, SelectedService);
+                foreach (SpecialistAppVM s in Specialists)
+                    s.SelectTime(Date, SelectedService);
+            }
         }
 
         private ICommand _addClientCommand;

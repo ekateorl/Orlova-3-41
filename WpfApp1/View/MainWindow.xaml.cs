@@ -29,7 +29,6 @@ namespace WpfApp1
             InitializeComponent();
             dataContext.nav = MainFrame.NavigationService;
             DataContext = dataContext;
-            
         }
         
     }

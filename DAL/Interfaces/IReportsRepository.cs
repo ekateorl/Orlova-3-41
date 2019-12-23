@@ -13,6 +13,7 @@ namespace DAL.Interfaces
         List<Appointment> ApointmentsForPeriod(DateTime date1, DateTime date2);
         List<Appointment> ApointmentsForPeriod(DateTime date1, DateTime date2, int SpecialistId);
         List<SpecialistWorkTime> WorkTimes(DateTime date1, DateTime date2);
-        List<ServPopularity> ServicePopularity(DateTime date1, DateTime date2);
+        List<ServiceInfo> ServiceInfos(DateTime date1, DateTime date2);
+        List<ServiceInfo> ServiceInfos(DateTime date1, DateTime date2, int SpecialistId);
     }
 }

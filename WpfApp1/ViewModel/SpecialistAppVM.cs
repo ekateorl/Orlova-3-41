@@ -10,6 +10,7 @@ using System.Windows.Input;
 using DAL.Entities;
 using DAL.Interfaces;
 using WpfApp1.ViewModel;
+using WpfApp1.View;
 
 namespace WpfApp1.ViewModel
 {
@@ -79,7 +80,7 @@ namespace WpfApp1.ViewModel
                 Time = Time.Substring(0, Time.Length - 3);
                 Appointments = new ObservableCollection<AppointmentVM>();
                 List<Appointment> app = crud.Appointments.GetList().Where(i => i.TimeSlot.WorkDay.SpecialistFk == UserId &&
-                i.TimeSlot.WorkDayFk == workDay.WorkDayId).ToList();
+                i.TimeSlot.WorkDayFk == workDay.WorkDayId).OrderBy(i=>i.TimeSlot.Beginning).ToList();
                 foreach (Appointment a in app)
                     Appointments.Add(new AppointmentVM(a, crud));
             }
@@ -123,17 +124,46 @@ namespace WpfApp1.ViewModel
                 if (_removeCommand == null)
                     _removeCommand = new RelayCommand(obj =>
                     {
-                        AppointmentVM app = (AppointmentVM)obj;
-                        List<TimeSlot> timeSlots = crud.TimeSlots.GetList().Where(i => i.AppointmentFk == app.AppointmentId).ToList();
-                        foreach (TimeSlot t in timeSlots)
-                            t.AppointmentFk = null;
-                        crud.Appointments.Delete(app.AppointmentId);
-                        Appointments.Remove(app);
-                        crud.Save();
+                        var dialog = new AskDialog(new DialogVM("Вы уверены, что хотите удалить запись?"));
+                        if (dialog.ShowDialog() == true)
+                        {
+                            AppointmentVM app = (AppointmentVM)obj;
+                            List<TimeSlot> timeSlots = crud.TimeSlots.GetList().Where(i => i.AppointmentFk == app.AppointmentId).ToList();
+                            foreach (TimeSlot t in timeSlots)
+                                t.AppointmentFk = null;
+                            crud.Appointments.Delete(app.AppointmentId);
+                            Appointments.Remove(app);
+                            crud.Save();
+                        }
                     });
                 return _removeCommand;
             }
             set { _removeCommand = value; }
+        }
+
+        private ICommand _payCommand;
+
+        public ICommand PayCommand
+        {
+            get
+            {
+                if (_payCommand == null)
+                    _payCommand = new RelayCommand(obj =>
+                    {
+                        AppointmentVM app = (AppointmentVM)obj;
+                        int i =Appointments.IndexOf(app);
+                        appointments.Remove(app);
+                        Appointment a = crud.Appointments.GetItem(app.AppointmentId);
+                        a.Done = true;
+                        app.Done = true;
+                        app.Paid= "Оплачено";
+                        crud.Appointments.Update(a);
+                        crud.Save();
+                        appointments.Insert(i, app);
+                    });
+                return _payCommand;
+            }
+            set { _payCommand = value; }
         }
 
         public delegate void NewAppointment(TimeSlot timeSlot);

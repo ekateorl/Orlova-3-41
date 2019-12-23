@@ -12,6 +12,7 @@ namespace WpfApp1.ViewModel
     {
         public int AppointmentId { get; set; }
 
+        public bool CanBeDel { get { return !Done; } }
         public bool Done { get; set; }
 
         public string Paid { get; set; }
@@ -48,8 +49,18 @@ namespace WpfApp1.ViewModel
             User = a.User;
             Time = TimeSlot.Beginning.ToString();
             Time = Time.Substring(0, Time.Length - 3);
-            TimeSlot slot2 = crud.TimeSlots.GetList().Where(i => i.AppointmentFk == AppointmentId).OrderBy(i => i.Beginning).ToList().Last();
-            Time += "-" + (slot2.Beginning + slot2.Duration).ToString();
+            List<TimeSlot> slot2 = crud.TimeSlots.GetList().Where(i => i.AppointmentFk == AppointmentId).OrderBy(i => i.Beginning).ToList();
+            if (slot2.Count > 0)
+                Time += "-" + (slot2.Last().Beginning + slot2.Last().Duration).ToString();
+            else
+            {
+                var ts = crud.MakeAppointments.SelectTime(TimeSlot.WorkDayFk, TimeSlot.Beginning).ToList();
+                TimeSpan duration = a.Service.Duration;
+                TimeSpan time = new TimeSpan(0);
+                for (int i = 0; i < ts.Count && time <= duration; i++)
+                    time += ts.ElementAt(i).Duration;
+                Time += "-" + (TimeSlot.Beginning + time).ToString();
+            }
             Time = Time.Substring(0, Time.Length - 3);
         }
     }

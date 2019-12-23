@@ -19,7 +19,7 @@ namespace DAL.Repository
 
         public List<Service> SelectServices(int CategoryId)
         {
-            var request = db.Service.Where(i => i.CategoryFk == CategoryId).ToList();
+            var request = db.Service.Where(i => i.CategoryFk == CategoryId && i.Provided).ToList();
             return request;
         }
 

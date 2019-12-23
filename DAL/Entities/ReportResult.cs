@@ -9,14 +9,23 @@ namespace DAL.Entities
     
         public class SpecialistWorkTime
         {
-            public string Name { get; set; }
+            public User Specialist { get; set; }
             public TimeSpan AllTime { get; set; }
             public TimeSpan AppTime { get; set; }
         }
 
-    public class ServPopularity
+    public class ServiceInfo
     {
         public string Name { get; set; }
         public int Quantity { get; set; }
+        public decimal CountCost { get; set; }
+        public string CountCostString
+        {
+            get
+            {
+                string String = CountCost.ToString();
+                return String.Substring(0, String.Length-5);
+            }
+        }
     }
 }

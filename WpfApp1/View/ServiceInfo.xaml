@@ -121,15 +121,14 @@
             <TextBlock Style="{StaticResource PhoneTextStyle}" Text="Длительность:" Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="0"
                        TextAlignment="Left" Margin="7"></TextBlock>
             
-            <CheckBox IsChecked="{Binding Provided}" Grid.Row="4" Grid.Column="1" IsEnabled="False" HorizontalAlignment="Left"
+            <!--<CheckBox IsChecked="{Binding Provided}" Grid.Row="4" Grid.Column="1" IsEnabled="False" HorizontalAlignment="Left"
                       VerticalAlignment="Center" Margin="7"></CheckBox>
             <TextBlock Style="{StaticResource PhoneTextStyle}" Text="Предоставляется:" Grid.Row="4" Grid.ColumnSpan="2" Grid.Column="0"
-                       TextAlignment="Left" Margin="7"></TextBlock>
+                       TextAlignment="Left" Margin="7"></TextBlock>-->
 
             <TextBlock Style="{StaticResource PhoneTextStyle}" Text="Описание:" Grid.Row="5" Grid.ColumnSpan="2" Grid.Column="0"
                        TextAlignment="Left"></TextBlock>
-            <TextBlock Style="{StaticResource DescriptionStyle}" Text="Оотамтва  пжуг  щупрущгпруфгж щгпрущгурпщуфг ущкпрфущкгпржпщгржущпгр кпрфжупщпфгф
-                       фроикплтмпиляитялюваит  ертыюе  горкщыер ощке ке ркщер  кыкыкшер оыкекы.ыщырыкщкы р п ггш" 
+            <TextBlock Style="{StaticResource DescriptionStyle}" Text="Очень красочное, интересное, информативное, подробное описание услуги" 
                        Grid.Row="6" Grid.ColumnSpan="3" Grid.Column="0" TextAlignment="Left"></TextBlock>
 
         </Grid>

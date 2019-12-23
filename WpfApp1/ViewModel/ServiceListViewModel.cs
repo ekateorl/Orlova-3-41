@@ -21,7 +21,7 @@ namespace WpfApp1.ViewModel
         {
             this.crud = crud;
             this.nav = nav;
-            Services = crud.Services.GetList().Where(i=>i.CategoryFk == category.CategoryId).OrderBy(i => i.Name).ToList();
+            Services = crud.Services.GetList().Where(i=>i.CategoryFk == category.CategoryId && i.Provided).OrderBy(i => i.Name).ToList();
         }
         private ICommand _infoCommand;
 

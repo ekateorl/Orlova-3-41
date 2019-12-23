@@ -17,11 +17,11 @@ using WpfApp1.ViewModel;
 namespace WpfApp1.View
 {
     /// <summary>
-    /// Логика взаимодействия для SchedulePage.xaml
+    /// Логика взаимодействия для ReportPage.xaml
     /// </summary>
-    public partial class SchedulePage : Page
+    public partial class ReportPage : Page
     {
-        public SchedulePage(SchedulePageVM dataContext)
+        public ReportPage(ReportViewModel dataContext)
         {
             InitializeComponent();
             DataContext = dataContext;

@@ -184,7 +184,7 @@
                                                     <Button  Style="{StaticResource ButtonStyle}" Margin="0" VerticalAlignment="Top" HorizontalAlignment="Stretch"
                                                             Height="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth}" TextElement.FontSize="12"
                                                              Command="{Binding DataContext.RemoveCommand, RelativeSource={RelativeSource FindAncestor,
-                                                             AncestorType={x:Type ListBox}}}" CommandParameter="{Binding}" >
+                                                             AncestorType={x:Type ListBox}}}" CommandParameter="{Binding}" IsEnabled="{Binding CanBeDel}">
                                                         x</Button>
                                                 </Grid>
                                                 <Grid Grid.Column="0" Margin="5">
@@ -202,6 +202,9 @@
                                                        Style="{StaticResource AppTextStyle}"></TextBlock>
                                                     <TextBlock Grid.Row="3" Text="{Binding PriceString}" Style="{StaticResource AppHeaderTextStyle}"></TextBlock>
                                                     <TextBlock Grid.Row="4" Text="{Binding Paid}" Style="{StaticResource AppTextStyle}"></TextBlock>
+                                                    <Button Grid.Row="4" Style="{StaticResource ButtonStyle}" Margin="2" VerticalAlignment="Center" Width="25" HorizontalAlignment="Right"
+                                                            Height="25" TextElement.FontSize="12" Command="{Binding DataContext.PayCommand, RelativeSource={RelativeSource FindAncestor,
+                                                             AncestorType={x:Type ListBox}}}" CommandParameter="{Binding}" IsEnabled="{Binding CanBeDel}">$</Button>
                                                 </Grid>
                                             </Grid>
                                         </DataTemplate>

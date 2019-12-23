@@ -83,5 +83,37 @@ namespace WpfApp1.ViewModel
             }
             set { _appPageCommand = value; }
         }
+
+        private ICommand _reportPageCommand;
+
+        public ICommand ReportPageCommand
+        {
+            get
+            {
+                if (_reportPageCommand == null)
+                    _reportPageCommand = new RelayCommand(obj =>
+                    {
+                        nav.Navigate(new View.ReportPage(new ReportViewModel(crud)));
+                    });
+                return _reportPageCommand;
+            }
+            set { _reportPageCommand = value; }
+        }
+
+        private ICommand _schedulePageCommand;
+
+        public ICommand SchedulePageCommand
+        {
+            get
+            {
+                if (_schedulePageCommand == null)
+                    _schedulePageCommand = new RelayCommand(obj =>
+                    {
+                        nav.Navigate(new View.SchedulePage(new SchedulePageVM(crud)));
+                    });
+                return _schedulePageCommand;
+            }
+            set { _schedulePageCommand = value; }
+        }
     }
 }

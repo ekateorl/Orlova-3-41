@@ -10,18 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfApp1.ViewModel;
 
 namespace WpfApp1.View
 {
     /// <summary>
-    /// Логика взаимодействия для SchedulePage.xaml
+    /// Логика взаимодействия для MessageWindow.xaml
     /// </summary>
-    public partial class SchedulePage : Page
+    public partial class MessageWindow : Window
     {
-        public SchedulePage(SchedulePageVM dataContext)
+        public MessageWindow(DialogVM dataContext)
         {
             InitializeComponent();
             DataContext = dataContext;

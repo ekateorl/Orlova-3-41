@@ -211,7 +211,7 @@
                                     <RowDefinition Height="Auto"></RowDefinition>
                                 </Grid.RowDefinitions>
                                 <TextBlock Text="{Binding Name}" Grid.Row="0" TextWrapping="Wrap" FontFamily="Candara"></TextBlock>
-                                <TextBlock Text="{Binding Birthdate}" Grid.Row="1" Foreground="Gray"></TextBlock>
+                                <TextBlock Text="{Binding Birthdate.Date}" Grid.Row="1" Foreground="Gray"></TextBlock>
                                 <TextBlock Text="{Binding Phone}" Grid.Row="2" Foreground="Purple"></TextBlock>
                                 <TextBlock Text="{Binding Email}" Grid.Row="3" Foreground="Purple"></TextBlock>
                             </Grid>
@@ -228,7 +228,7 @@
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" Grid.Row="1" TextElement.Foreground="Purple" TextElement.FontSize="20" TextElement.FontFamily="Candara" >
                 <TextBlock Margin="9,7,7,7">Стоимость:</TextBlock>
-                <TextBlock Margin="7">1500</TextBlock>
+                <TextBlock Margin="7" Text="{Binding SelectedService.Price}"></TextBlock>
                 <TextBlock Margin="7">руб.</TextBlock>
             </StackPanel>
             <ListBox Grid.Row="0" Width="Auto" ItemsSource="{Binding Specialists}" IsEnabled="{Binding IfClientSelected}">

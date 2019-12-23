@@ -10,7 +10,7 @@ using DAL.Entities;
 
 namespace WpfApp1.ViewModel
 {
-    public class AddClientVM : IRequireViewIdentification, INotifyPropertyChanged
+    public class AddClientVM : DialogVM, INotifyPropertyChanged
     {
         private bool filled;
         public bool Filled
@@ -27,42 +27,7 @@ namespace WpfApp1.ViewModel
         {
             this.Client = Client;
         }
-        private Guid _viewId;
-        public Guid ViewID
-        {
-            get { return _viewId; }
-        }
-        private ICommand _okCommand;
-
-        public ICommand OKCommand
-        {
-            get
-            {
-                if (_okCommand == null)
-                    _okCommand = new RelayCommand(obj =>
-                    {
-                        WindowManager.DialogResultTrue(ViewID);
-                    });
-                return _okCommand;
-            }
-            set { _okCommand = value; }
-        }
-
-        private ICommand _cancelCommand;
-
-        public ICommand CancelCommand
-        {
-            get
-            {
-                if (_cancelCommand == null)
-                    _cancelCommand = new RelayCommand(obj =>
-                    {
-                        WindowManager.DialogResultFalse(ViewID);
-                    });
-                return _cancelCommand;
-            }
-            set { _cancelCommand = value; }
-        }
+      
 
         private ICommand _filledCommand;
 
